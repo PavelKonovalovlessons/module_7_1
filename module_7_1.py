@@ -14,22 +14,22 @@ class Product:
 
 class Shop:
     def __init__(self):
-        self.__file_name = 'products.txt'
+        self.__file_name = open('products.txt', 'a')
 
     def get_product(self):
-        file = open(self.__file_name, 'r')
+        file = open('products.txt', 'r')
         str1 = file.read()
         file.close()
         return str1
 
     def add(self, *products):
         for product in products:
-            if product.name not in products:
-                file = open(self.__file_name, 'a')
-                file.write(f'{product.__str__()}\n')
+            if str(product) not in self.get_product() :
+                file = open('products.txt', 'a+')
+                file.write(f'{str(product)}\n')
                 file.close()
-            elif product.name in products:
-                print(f'Продукт {product.name} уже есть в магазине')
+            else:
+                print(f'Продукт {product} уже есть в магазине')
 
 
 
@@ -40,8 +40,7 @@ p1 = Product('Potato', 50.5, 'Vegetables')
 p2 = Product('Spaghetti', 3.4, 'Groceries')
 p3 = Product('Potato', 5.5, 'Vegetables')
 
-print(p2) # __str__
+print(p2)
 
 s1.add(p1, p2, p3)
-
 print(s1.get_product())
